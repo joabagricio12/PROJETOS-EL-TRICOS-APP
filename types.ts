@@ -1,0 +1,67 @@
+
+export interface WegMotorData {
+  cv: number;
+  kw: number;
+  model: string;
+  currentIn: number;
+  efficiency: number;
+  powerFactor: number;
+  frame: string;
+  weight: number;
+  rpm: number;
+}
+
+export interface DimensioningResult {
+  motor: WegMotorData;
+  circuitBreaker: string;
+  cableSize: string;
+  contactor: string;
+  thermalRelay: string;
+  starterType: string;
+  inverter?: string;
+  voltageDrop?: string;
+}
+
+export interface ComparisonData {
+  before: { 
+    cv: number; 
+    cable: string;
+    breaker: string;
+    starter: string;
+  };
+  after: { 
+    cv: number;
+    distance: number; // Nova metragem em metros
+  };
+}
+
+export interface BlockData {
+  id: string;
+  type: 'text' | 'comparison' | 'summary_table';
+  value: string | ComparisonData;
+  fontSize: number;
+  bold?: boolean;
+  italic?: boolean;
+  align?: 'left' | 'center' | 'right' | 'justify';
+}
+
+export interface PageData {
+  id: string;
+  blocks: BlockData[];
+}
+
+export interface ProjectData {
+  title: string;
+  pages: PageData[];
+  clientName?: string;
+  techResponsible?: string;
+}
+
+export interface ProjectSummary {
+  motorCount: number;
+  totalCv: number;
+  totalKw: number;
+  totalIn: number;
+  recommendedMainBreaker: string;
+  details: DimensioningResult[];
+}
